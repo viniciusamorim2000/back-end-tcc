@@ -24,7 +24,5 @@ public abstract class Usuario implements Serializable {
     private String senha;
     private String telefone;
 
-
-
 }
 
