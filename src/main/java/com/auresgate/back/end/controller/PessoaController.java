@@ -31,10 +31,10 @@ public class PessoaController {
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<?> adicionarPessoa(@RequestBody Pessoa Pessoa){
-        Pessoa PessoaSalvo = pessoaRepository.save(Pessoa);
+        Pessoa pessoaSalvo = pessoaRepository.save(Pessoa);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/pessoa").path("/{id}")
-                .buildAndExpand(PessoaSalvo.getId()).toUri();
+                .buildAndExpand(pessoaSalvo.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
     }

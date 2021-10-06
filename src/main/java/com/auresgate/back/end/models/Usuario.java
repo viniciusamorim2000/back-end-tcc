@@ -7,16 +7,18 @@ import java.io.Serializable;
 
 
 @Entity
-@Data
 @NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Usuario implements Serializable {
+public abstract class Usuario implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String nome;
