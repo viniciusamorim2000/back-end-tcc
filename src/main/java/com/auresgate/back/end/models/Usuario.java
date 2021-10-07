@@ -20,7 +20,7 @@ public abstract class Usuario implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
+    private String endereco;
     private String nome;
     private String email;
     private String senha;

@@ -30,8 +30,8 @@ public class PessoaController {
     }
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<?> adicionarPessoa(@RequestBody Pessoa Pessoa){
-        Pessoa pessoaSalvo = pessoaRepository.save(Pessoa);
+    public ResponseEntity<?> adicionarPessoa(@RequestBody Pessoa pessoa){
+        Pessoa pessoaSalvo = pessoaRepository.save(pessoa);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/pessoa").path("/{id}")
                 .buildAndExpand(pessoaSalvo.getId()).toUri();
