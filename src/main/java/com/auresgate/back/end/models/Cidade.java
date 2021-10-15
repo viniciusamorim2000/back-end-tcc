@@ -4,28 +4,24 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
+@Data
 @Getter
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Usuario implements Serializable{
-
-    private static final long serialVersionUID = 1L;
-
+public class Cidade implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String nome;
-    private String email;
-    private String senha;
-    private String telefone;
+
+    @OneToMany
+    private List<Endereco> enderecos;
 
     @ManyToOne
-    private Endereco endereco;
+    private Estado estado;
 }
-

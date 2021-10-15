@@ -4,6 +4,7 @@ import com.auresgate.back.end.models.Usuario;
 import com.auresgate.back.end.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -28,7 +29,7 @@ public class UsuarioController {
     }
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<?> adicionarUsuario(@RequestBody Usuario usuario){
+    public ResponseEntity<?> adicionarUsuario(@RequestBody @Validated Usuario usuario){
         Usuario usuarioSalvo = usuarioRepository.save(usuario);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/usuario").path("/{id}")

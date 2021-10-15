@@ -3,6 +3,7 @@ package com.auresgate.back.end.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @NoArgsConstructor
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
-public class Localizacao {
+public class Localizacao implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
