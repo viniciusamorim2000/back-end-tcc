@@ -25,7 +25,7 @@ public abstract class Usuario implements Serializable{
     private String senha;
     private String telefone;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Endereco endereco;
 }
 

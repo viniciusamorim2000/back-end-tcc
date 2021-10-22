@@ -1,6 +1,7 @@
 package com.auresgate.back.end.models;
 
-import com.sun.istack.internal.NotNull;
+import com.sun.istack.NotNull;
+import com.sun.istack.Nullable;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -25,6 +26,6 @@ public class Animal implements Serializable {
     private String descricao;
 
     @OneToOne
-    @NonNull
+    @NotNull
     private Localizacao localizacao;
 }

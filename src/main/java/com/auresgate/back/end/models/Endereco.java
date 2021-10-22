@@ -1,8 +1,6 @@
 package com.auresgate.back.end.models;
 
-import com.sun.istack.internal.NotNull;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,8 +23,9 @@ public class Endereco implements Serializable {
     private String bairro;
     private String cep;
 
-    @OneToMany
+    @OneToMany(mappedBy = "endereco")
     private List<Usuario> usuarios;
-    @ManyToOne
+
+    @ManyToOne()
     private Cidade cidade;
 }

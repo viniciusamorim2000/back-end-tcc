@@ -20,7 +20,7 @@ public class AnimalController {
     private AnimalRepository animalRepository;
 
     @GetMapping
-    public ResponseEntity<List<Animal>> listarOng(){
+    public ResponseEntity<List<Animal>> listarAnimal(){
         return ResponseEntity.ok().body(animalRepository.findAll());
     }
 

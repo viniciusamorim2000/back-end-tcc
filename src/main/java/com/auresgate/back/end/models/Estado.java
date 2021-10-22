@@ -1,5 +1,6 @@
 package com.auresgate.back.end.models;
 
+import com.sun.istack.Nullable;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,6 +21,6 @@ public class Estado implements Serializable {
     private String nome;
     private String sigla;
 
-    @OneToMany
+    @OneToMany(mappedBy = "estado")
     private List<Cidade> cidades;
 }
