@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/cidades")
@@ -19,9 +20,19 @@ public class CidadeController {
     @Autowired
     private CidadeRepository cidadeRepository;
 
+    @Autowired
+    private EstadoRepository estadoRepository;
+
     @GetMapping
     public ResponseEntity<List<Cidade>> listarCidade(){
         return ResponseEntity.ok().body(cidadeRepository.findAll());
+    }
+
+    @GetMapping("/estado/{id}")
+    public ResponseEntity<List<Cidade>> listarCidadePorEstado(@PathVariable Integer id){
+        return ResponseEntity.ok().body(cidadeRepository.findAll().stream().filter( c -> {
+            return c.getEstado().getId().equals(id);
+        }).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
@@ -31,6 +42,8 @@ public class CidadeController {
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity<?> adicionarCidade(@RequestBody Cidade cidade){
+        Estado estado = estadoRepository.findById(cidade.getEstado().getId()).get();
+        cidade.setEstado(estado);
         Cidade cidadeSalvo = cidadeRepository.save(cidade);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/cidade").path("/{id}")

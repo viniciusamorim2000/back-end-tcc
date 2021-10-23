@@ -1,5 +1,6 @@
 package com.auresgate.back.end.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.Nullable;
 import lombok.*;
 
@@ -22,5 +23,6 @@ public class Estado implements Serializable {
     private String sigla;
 
     @OneToMany(mappedBy = "estado")
+    @JsonIgnore
     private List<Cidade> cidades;
 }

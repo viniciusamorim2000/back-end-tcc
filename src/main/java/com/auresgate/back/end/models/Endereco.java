@@ -1,5 +1,6 @@
 package com.auresgate.back.end.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class Endereco implements Serializable {
     private String cep;
 
     @OneToMany(mappedBy = "endereco")
+    @JsonIgnore
     private List<Usuario> usuarios;
 
     @ManyToOne()
