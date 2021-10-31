@@ -1,5 +1,6 @@
 package com.auresgate.back.end.models;
 
+import com.auresgate.back.end.models.enumeration.Sexo;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import javax.persistence.*;
 public class Pessoa extends Usuario {
 
     private Integer idade;
-    private String sexo;
+    @Enumerated(EnumType.STRING)
+    private Sexo sexo;
 }
 
