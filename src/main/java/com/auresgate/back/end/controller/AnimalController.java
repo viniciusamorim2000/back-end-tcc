@@ -38,4 +38,11 @@ public class AnimalController {
 
         return ResponseEntity.created(uri).build();
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteAnimal(@PathVariable Integer id){
+        animalRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

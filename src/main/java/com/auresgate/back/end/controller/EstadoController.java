@@ -6,6 +6,7 @@ import com.auresgate.back.end.models.Usuario;
 import com.auresgate.back.end.repository.CidadeRepository;
 import com.auresgate.back.end.repository.EstadoRepository;
 import com.auresgate.back.end.repository.UsuarioRepository;
+import org.apache.tomcat.util.http.HeaderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -40,5 +41,11 @@ public class EstadoController {
                 .buildAndExpand(estadoSalvo.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteEstado(@PathVariable Integer id){
+        estadoRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

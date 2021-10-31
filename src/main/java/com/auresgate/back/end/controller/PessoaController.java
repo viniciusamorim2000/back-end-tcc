@@ -38,4 +38,11 @@ public class PessoaController {
 
         return ResponseEntity.created(uri).build();
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deletePessoa(@PathVariable Integer id){
+        pessoaRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

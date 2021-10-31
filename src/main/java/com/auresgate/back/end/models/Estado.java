@@ -3,6 +3,7 @@ package com.auresgate.back.end.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.Nullable;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,7 +23,7 @@ public class Estado implements Serializable {
     private String nome;
     private String sigla;
 
-    @OneToMany(mappedBy = "estado")
+    @OneToMany(mappedBy = "estado", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Cidade> cidades;
 }

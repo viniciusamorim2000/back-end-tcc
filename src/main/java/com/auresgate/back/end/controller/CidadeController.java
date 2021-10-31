@@ -51,4 +51,10 @@ public class CidadeController {
 
         return ResponseEntity.created(uri).build();
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteCidade(@PathVariable Integer id){
+        cidadeRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

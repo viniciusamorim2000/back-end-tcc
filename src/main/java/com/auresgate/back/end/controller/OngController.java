@@ -37,4 +37,10 @@ public class OngController {
 
         return ResponseEntity.created(uri).build();
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteOng(@PathVariable Integer id){
+        ongRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
