@@ -28,4 +28,7 @@ public class Animal implements Serializable {
     @OneToOne
     @NotNull
     private Localizacao localizacao;
+
+    @OneToOne
+    private Chamado chamado;
 }

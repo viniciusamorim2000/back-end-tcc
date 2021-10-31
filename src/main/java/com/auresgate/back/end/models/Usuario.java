@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
@@ -27,5 +28,8 @@ public abstract class Usuario implements Serializable{
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Endereco endereco;
+
+    @OneToMany(mappedBy = "usuario_atendeu_chamado")
+    private List<Chamado> chamado_atendido;
 }
 

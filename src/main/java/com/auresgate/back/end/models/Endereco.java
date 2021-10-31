@@ -19,10 +19,9 @@ public class Endereco implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String rua;
+    private String complemento;
     private Integer numero;
     private String bairro;
-    private String cep;
 
     @OneToMany(mappedBy = "endereco")
     @JsonIgnore
