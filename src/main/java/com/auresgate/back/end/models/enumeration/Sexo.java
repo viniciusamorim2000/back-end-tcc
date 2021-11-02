@@ -1,5 +1,5 @@
 package com.auresgate.back.end.models.enumeration;
 
 public enum Sexo {
-    MASCULINO, FEMININO
+    MASCULINO, FEMININO, M, F
 }

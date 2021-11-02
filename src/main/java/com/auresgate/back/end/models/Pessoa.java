@@ -23,5 +23,6 @@ public class Pessoa extends Usuario {
 
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
+
 }
 
