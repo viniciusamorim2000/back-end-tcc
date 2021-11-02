@@ -45,4 +45,10 @@ public class PessoaController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("")
+    public ResponseEntity<Void> deletePessoa(){
+        pessoaRepository.deleteAll();
+        return ResponseEntity.noContent().build();
+    }
+
 }
