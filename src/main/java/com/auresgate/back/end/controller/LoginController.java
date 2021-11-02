@@ -50,7 +50,7 @@ public class LoginController {
             retorno.setNome(pessoa.getNome());
             retorno.setIsPerson(true);
         }else{
-            Ong ong = ongRepository.findOngByNome(email);
+            Ong ong = ongRepository.findOngByEmail(email);
             if(ong != null){
                 retorno.setId(ong.getId());
                 retorno.setNome(ong.getNome());
@@ -61,7 +61,7 @@ public class LoginController {
     }
 
     @PutMapping("/alterarSenha")
-    public void AlterarSenha(@RequestBody LoginDTO user, @RequestBody String novaSenha){
+    public void AlterarSenha(@RequestBody LoginDTO user, @RequestParam String novaSenha){
         if(user.getIsPerson()){
             Pessoa pessoa = pessoaRepository.findById(user.getId()).get();
             pessoa.setSenha(novaSenha);
