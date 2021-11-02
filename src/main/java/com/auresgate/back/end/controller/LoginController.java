@@ -40,4 +40,36 @@ public class LoginController {
         }
         return ResponseEntity.ok(retorno);
     }
+
+    @GetMapping("/email")
+    public ResponseEntity<LoginDTO> recuperarUsuarioEmail(@RequestParam String email){
+        LoginDTO retorno = new LoginDTO();
+        Pessoa pessoa = pessoaRepository.findPessoaByEmail(email);
+        if(pessoa != null){
+            retorno.setId(pessoa.getId());
+            retorno.setNome(pessoa.getNome());
+            retorno.setIsPerson(true);
+        }else{
+            Ong ong = ongRepository.findOngByNome(email);
+            if(ong != null){
+                retorno.setId(ong.getId());
+                retorno.setNome(ong.getNome());
+                retorno.setIsPerson(false);
+            }
+        }
+        return ResponseEntity.ok(retorno);
+    }
+
+    @PutMapping("/alterarSenha")
+    public void AlterarSenha(@RequestBody LoginDTO user, @RequestBody String novaSenha){
+        if(user.getIsPerson()){
+            Pessoa pessoa = pessoaRepository.findById(user.getId()).get();
+            pessoa.setSenha(novaSenha);
+            pessoaRepository.save(pessoa);
+        }else{
+            Ong ong = ongRepository.findById(user.getId()).get();
+            ong.setSenha(novaSenha);
+            ongRepository.save(ong);
+        }
+    }
 }
