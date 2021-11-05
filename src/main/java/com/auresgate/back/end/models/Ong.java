@@ -12,5 +12,7 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode
 public class Ong extends Usuario {
+
+    private String cnpj;
 }
 
