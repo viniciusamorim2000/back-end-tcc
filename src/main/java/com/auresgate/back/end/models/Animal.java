@@ -19,13 +19,10 @@ public class Animal implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
-    private String sexo;
-    private String raca;
     private String estado;
     private String descricao;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @NotNull
     private Localizacao localizacao;
 

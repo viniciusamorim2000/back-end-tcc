@@ -1,9 +1,11 @@
 package com.auresgate.back.end.models;
 
+import com.auresgate.back.end.models.enumeration.Status;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @NoArgsConstructor
@@ -17,7 +19,14 @@ public class Chamado implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToOne
+    private Date data_hora_abertura = new Date();
+
+    private Date data_hora_fechamento;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Animal animal;
 
     @ManyToOne
