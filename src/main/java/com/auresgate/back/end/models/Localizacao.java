@@ -16,8 +16,8 @@ public class Localizacao implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String latitude;
-    private String longitude;
+    private Double latitude;
+    private Double longitude;
 
     @OneToOne
     private Animal animal;
