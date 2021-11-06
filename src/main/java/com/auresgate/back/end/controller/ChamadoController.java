@@ -80,7 +80,7 @@ public class ChamadoController {
     }
 
 
-    @PutMapping
+    @PutMapping("/finalizar")
     public void finalizarChamado(@RequestBody ChamadoResgateDTO chamadoResgateDTO){
         Chamado chamado = chamadoRepository.findById(chamadoResgateDTO.getIdChamado()).get();
 
