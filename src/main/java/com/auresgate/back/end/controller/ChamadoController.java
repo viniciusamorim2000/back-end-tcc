@@ -3,12 +3,15 @@ package com.auresgate.back.end.controller;
 import com.auresgate.back.end.models.Animal;
 import com.auresgate.back.end.models.Chamado;
 import com.auresgate.back.end.models.Pessoa;
+import com.auresgate.back.end.models.Usuario;
 import com.auresgate.back.end.models.dto.ChamadoDTO;
+import com.auresgate.back.end.models.dto.ChamadoResgateDTO;
 import com.auresgate.back.end.models.dto.LoginDTO;
 import com.auresgate.back.end.models.enumeration.Status;
 import com.auresgate.back.end.repository.ChamadoRepository;
 import com.auresgate.back.end.repository.OngRepository;
 import com.auresgate.back.end.repository.PessoaRepository;
+import com.auresgate.back.end.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +33,9 @@ public class ChamadoController {
 
     @Autowired
     private OngRepository ongRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @GetMapping
     public ResponseEntity<List<Chamado>> listarChamado(){
@@ -57,6 +63,31 @@ public class ChamadoController {
                 .buildAndExpand(chamadoSalvo.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping
+    public void associarUsuarioResgate(@RequestBody ChamadoResgateDTO chamadoResgateDTO){
+        Chamado chamado = chamadoRepository.findById(chamadoResgateDTO.getIdChamado()).get();
+
+        Usuario usuario = chamadoResgateDTO.getLoginDTO().getIsPerson() ?
+            usuarioRepository.findUsuarioByEmail(pessoaRepository.findById(chamadoResgateDTO.getLoginDTO().getId()).get().getEmail())
+                    : usuarioRepository.findUsuarioByEmail(ongRepository.findById(chamadoResgateDTO.getLoginDTO().getId()).get().getEmail());
+
+        chamado.setUsuario_atendeu_chamado(usuario);
+        chamado.setStatus(Status.ANDAMENTO);
+
+        chamadoRepository.save(chamado);
+    }
+
+
+    @PutMapping
+    public void finalizarChamado(@RequestBody ChamadoResgateDTO chamadoResgateDTO){
+        Chamado chamado = chamadoRepository.findById(chamadoResgateDTO.getIdChamado()).get();
+
+        chamado.setStatus(Status.FECHADO);
+        chamado.setData_hora_fechamento(new Date());
+
+        chamadoRepository.save(chamado);
     }
 
     @DeleteMapping("{id}")
