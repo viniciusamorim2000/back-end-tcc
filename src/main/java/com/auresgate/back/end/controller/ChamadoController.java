@@ -13,11 +13,17 @@ import com.auresgate.back.end.repository.OngRepository;
 import com.auresgate.back.end.repository.PessoaRepository;
 import com.auresgate.back.end.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.util.Date;
 import java.util.List;
@@ -63,6 +69,19 @@ public class ChamadoController {
                 .buildAndExpand(chamadoSalvo.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @Value("${file.upload-dir}")
+    String FILE_DIRETORIO;
+
+    @PostMapping("/upload")
+    public ResponseEntity<Object> fileUpload(@RequestParam("File") MultipartFile imagem) throws IOException {
+        File file = new File(FILE_DIRETORIO+imagem.getOriginalFilename());
+        file.createNewFile();
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        fileOutputStream.write(imagem.getBytes());
+        fileOutputStream.close();
+        return new ResponseEntity<Object>("Imagem salva com sucesso", HttpStatus.OK);
     }
 
     @PutMapping
