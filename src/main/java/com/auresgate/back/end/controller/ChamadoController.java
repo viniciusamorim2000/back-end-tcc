@@ -1,6 +1,5 @@
 package com.auresgate.back.end.controller;
 
-import com.auresgate.back.end.models.Animal;
 import com.auresgate.back.end.models.Chamado;
 import com.auresgate.back.end.models.Pessoa;
 import com.auresgate.back.end.models.Usuario;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,7 +23,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -102,13 +99,13 @@ public class ChamadoController {
     }
 
 
-    @PutMapping("/finalizar")
-    public void finalizarChamado(@RequestBody ChamadoResgateDTO chamadoResgateDTO){
-        Chamado chamado = chamadoRepository.findById(chamadoResgateDTO.getIdChamado()).get();
+    @PutMapping("/finalizar/{id}")
+    public void finalizarChamado(@RequestPart MultipartFile file, @PathVariable Integer id) throws IOException {
+        Chamado chamado = chamadoRepository.findById(id).get();
 
+        chamado.setImagem(file.getBytes());
         chamado.setStatus(Status.FECHADO);
         chamado.setData_hora_fechamento(new Date());
-
         chamadoRepository.save(chamado);
     }
 
