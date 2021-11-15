@@ -1,9 +1,6 @@
 package com.auresgate.back.end.controller;
 
-import com.auresgate.back.end.models.Animal;
-import com.auresgate.back.end.models.Chamado;
-import com.auresgate.back.end.models.Pessoa;
-import com.auresgate.back.end.models.Usuario;
+import com.auresgate.back.end.models.*;
 import com.auresgate.back.end.models.dto.ChamadoDTO;
 import com.auresgate.back.end.models.dto.ChamadoResgateDTO;
 import com.auresgate.back.end.models.dto.LoginDTO;
@@ -12,6 +9,7 @@ import com.auresgate.back.end.repository.ChamadoRepository;
 import com.auresgate.back.end.repository.OngRepository;
 import com.auresgate.back.end.repository.PessoaRepository;
 import com.auresgate.back.end.repository.UsuarioRepository;
+import com.sun.xml.internal.ws.api.pipe.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -75,7 +73,7 @@ public class ChamadoController {
     String FILE_DIRETORIO;
 
     @PostMapping("/upload")
-    public ResponseEntity<Object> fileUpload(@RequestParam("File") MultipartFile imagem) throws IOException {
+    public ResponseEntity<Object> fileUpload(@RequestParam("File") MultipartFile imagem, @RequestParam Localizacao id) throws IOException {
         File file = new File(FILE_DIRETORIO+imagem.getOriginalFilename());
         file.createNewFile();
         FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -94,6 +92,15 @@ public class ChamadoController {
 
         chamado.setUsuario_atendeu_chamado(usuario);
         chamado.setStatus(Status.ANDAMENTO);
+
+        chamadoRepository.save(chamado);
+    }
+
+    @PutMapping("/{id}")
+    public void EditarResgate(@RequestBody Animal animal, @PathVariable Integer id){
+        Chamado chamado = chamadoRepository.findById(id).get();
+
+        chamado.setAnimal(animal);
 
         chamadoRepository.save(chamado);
     }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OngRepository extends JpaRepository<Ong, Integer> {
-    Ong findOngByNome(String nome);
+    Ong findOngByNomeUsuario(String nomeUsuario);
 
     Ong findOngByEmail(String email);
 }

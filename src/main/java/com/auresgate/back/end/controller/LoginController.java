@@ -25,13 +25,13 @@ public class LoginController {
     @GetMapping
     public ResponseEntity<LoginDTO> recuperarUsuario(@RequestParam String username, @RequestParam String senha){
         LoginDTO retorno = new LoginDTO();
-        Pessoa pessoa = pessoaRepository.findPessoaByNome(username);
+        Pessoa pessoa = pessoaRepository.findPessoaByNomeUsuario(username);
         if(pessoa != null && pessoa.getSenha().equals(senha)){
             retorno.setId(pessoa.getId());
             retorno.setNome(pessoa.getNome());
             retorno.setIsPerson(true);
         }else{
-            Ong ong = ongRepository.findOngByNome(username);
+            Ong ong = ongRepository.findOngByNomeUsuario(username);
             if(ong != null && ong.getSenha().equals(senha)){
                 retorno.setId(ong.getId());
                 retorno.setNome(ong.getNome());
