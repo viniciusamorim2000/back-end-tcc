@@ -1,5 +1,6 @@
 package com.auresgate.back.end.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Localizacao implements Serializable {
     private Double latitude;
     private Double longitude;
 
+    @JsonIgnore
     @OneToOne
     private Animal animal;
 }

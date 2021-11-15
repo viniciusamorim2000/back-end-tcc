@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -53,13 +54,15 @@ public class ChamadoController {
         return ResponseEntity.ok().body(chamadoRepository.findById(id).get());
     }
 
-    @PostMapping(consumes = "application/json")
-    public ResponseEntity<?> adicionarChamado(@RequestBody @Validated ChamadoDTO chamadoDTO){
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseEntity<?> adicionarChamado(@RequestPart MultipartFile file, @RequestPart ChamadoDTO chamadoDTO) throws IOException {
         Pessoa pessoa = pessoaRepository.findById(chamadoDTO.getLoginDTO().getId()).get();
+
 
         Chamado chamado = new Chamado();
         chamado.setStatus(Status.ABERTO);
         chamado.setData_hora_abertura(new Date());
+        chamadoDTO.getAnimal().setImagem(file.getBytes());
         chamado.setAnimal(chamadoDTO.getAnimal());
         chamado.setUsuario_abriu_chamado(pessoa);
 

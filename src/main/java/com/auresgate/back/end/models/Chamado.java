@@ -35,4 +35,7 @@ public class Chamado implements Serializable {
     @ManyToOne
     private Usuario usuario_atendeu_chamado;
 
+    @Lob
+    private byte[] imagem;
+
 }

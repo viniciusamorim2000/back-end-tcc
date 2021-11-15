@@ -12,4 +12,6 @@ public class ChamadoDTO {
     private Animal animal;
 
     private LoginDTO loginDTO;
+
+    private String imagem;
 }
