@@ -1,6 +1,8 @@
 package com.auresgate.back.end.controller;
 
-import com.auresgate.back.end.models.*;
+import com.auresgate.back.end.models.Chamado;
+import com.auresgate.back.end.models.Pessoa;
+import com.auresgate.back.end.models.Usuario;
 import com.auresgate.back.end.models.dto.ChamadoDTO;
 import com.auresgate.back.end.models.dto.ChamadoResgateDTO;
 import com.auresgate.back.end.models.dto.LoginDTO;
@@ -9,12 +11,10 @@ import com.auresgate.back.end.repository.ChamadoRepository;
 import com.auresgate.back.end.repository.OngRepository;
 import com.auresgate.back.end.repository.PessoaRepository;
 import com.auresgate.back.end.repository.UsuarioRepository;
-import com.sun.xml.internal.ws.api.pipe.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -52,12 +52,14 @@ public class ChamadoController {
     }
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<?> adicionarChamado(@RequestBody @Validated ChamadoDTO chamadoDTO){
+    public ResponseEntity<?> adicionarChamado(@RequestBody ChamadoDTO chamadoDTO) throws IOException {
         Pessoa pessoa = pessoaRepository.findById(chamadoDTO.getLoginDTO().getId()).get();
+
 
         Chamado chamado = new Chamado();
         chamado.setStatus(Status.ABERTO);
         chamado.setData_hora_abertura(new Date());
+        chamado.setImagem(chamadoDTO.getImg());
         chamado.setAnimal(chamadoDTO.getAnimal());
         chamado.setUsuario_abriu_chamado(pessoa);
 
@@ -73,7 +75,7 @@ public class ChamadoController {
     String FILE_DIRETORIO;
 
     @PostMapping("/upload")
-    public ResponseEntity<Object> fileUpload(@RequestParam("File") MultipartFile imagem, @RequestParam Localizacao id) throws IOException {
+    public ResponseEntity<Object> fileUpload(@RequestParam("File") MultipartFile imagem) throws IOException {
         File file = new File(FILE_DIRETORIO+imagem.getOriginalFilename());
         file.createNewFile();
         FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -106,13 +108,13 @@ public class ChamadoController {
     }
 
 
-    @PutMapping("/finalizar")
-    public void finalizarChamado(@RequestBody ChamadoResgateDTO chamadoResgateDTO){
-        Chamado chamado = chamadoRepository.findById(chamadoResgateDTO.getIdChamado()).get();
+    @PutMapping("/finalizar/{id}")
+    public void finalizarChamado(@RequestPart MultipartFile file, @PathVariable Integer id) throws IOException {
+        Chamado chamado = chamadoRepository.findById(id).get();
 
+        chamado.setImagem(file.getBytes());
         chamado.setStatus(Status.FECHADO);
         chamado.setData_hora_fechamento(new Date());
-
         chamadoRepository.save(chamado);
     }
 
