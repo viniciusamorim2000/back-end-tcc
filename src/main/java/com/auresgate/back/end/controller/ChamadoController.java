@@ -1,5 +1,6 @@
 package com.auresgate.back.end.controller;
 
+import com.auresgate.back.end.models.Animal;
 import com.auresgate.back.end.models.Chamado;
 import com.auresgate.back.end.models.Pessoa;
 import com.auresgate.back.end.models.Usuario;
