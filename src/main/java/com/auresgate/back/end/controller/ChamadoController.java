@@ -60,8 +60,8 @@ public class ChamadoController {
         Chamado chamado = new Chamado();
         chamado.setStatus(Status.ABERTO);
         chamado.setData_hora_abertura(new Date());
-        chamado.setImagem(chamadoDTO.getImg());
         chamado.setAnimal(chamadoDTO.getAnimal());
+        chamado.getAnimal().setImagem(chamadoDTO.getImg());
         chamado.setUsuario_abriu_chamado(pessoa);
 
         Chamado chamadoSalvo = chamadoRepository.save(chamado);
