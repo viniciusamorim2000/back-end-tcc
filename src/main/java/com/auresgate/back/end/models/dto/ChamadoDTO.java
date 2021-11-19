@@ -13,5 +13,5 @@ public class ChamadoDTO {
 
     private LoginDTO loginDTO;
 
-    private String imagem;
+    private byte[] img;
 }

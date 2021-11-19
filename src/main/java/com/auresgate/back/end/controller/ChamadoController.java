@@ -51,15 +51,15 @@ public class ChamadoController {
         return ResponseEntity.ok().body(chamadoRepository.findById(id).get());
     }
 
-    @PostMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<?> adicionarChamado(@RequestPart MultipartFile file, @RequestPart ChamadoDTO chamadoDTO) throws IOException {
+    @PostMapping(consumes = "application/json")
+    public ResponseEntity<?> adicionarChamado(@RequestBody ChamadoDTO chamadoDTO) throws IOException {
         Pessoa pessoa = pessoaRepository.findById(chamadoDTO.getLoginDTO().getId()).get();
 
 
         Chamado chamado = new Chamado();
         chamado.setStatus(Status.ABERTO);
         chamado.setData_hora_abertura(new Date());
-        chamadoDTO.getAnimal().setImagem(file.getBytes());
+        chamado.setImagem(chamadoDTO.getImg());
         chamado.setAnimal(chamadoDTO.getAnimal());
         chamado.setUsuario_abriu_chamado(pessoa);
 
