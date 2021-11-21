@@ -48,4 +48,10 @@ public class EstadoController {
         estadoRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("")
+    public ResponseEntity<Void> deleteEstado(){
+        estadoRepository.deleteAll();
+        return ResponseEntity.noContent().build();
+    }
 }
