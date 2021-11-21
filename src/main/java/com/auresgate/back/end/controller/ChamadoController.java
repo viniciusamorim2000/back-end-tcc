@@ -110,10 +110,10 @@ public class ChamadoController {
 
 
     @PutMapping("/finalizar/{id}")
-    public void finalizarChamado(@RequestPart MultipartFile file, @PathVariable Integer id) throws IOException {
+    public void finalizarChamado(byte[] img, @PathVariable Integer id) throws IOException {
         Chamado chamado = chamadoRepository.findById(id).get();
 
-        chamado.setImagem(file.getBytes());
+        chamado.setImagem(img);
         chamado.setStatus(Status.FECHADO);
         chamado.setData_hora_fechamento(new Date());
         chamadoRepository.save(chamado);

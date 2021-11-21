@@ -1,5 +1,6 @@
 package com.auresgate.back.end.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ public abstract class Usuario implements Serializable{
     private Endereco endereco;
 
     @OneToMany(mappedBy = "usuario_atendeu_chamado")
+    @JsonIgnore
     private List<Chamado> chamado_atendido;
 }
 
