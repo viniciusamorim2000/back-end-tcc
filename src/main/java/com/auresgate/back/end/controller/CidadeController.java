@@ -57,4 +57,9 @@ public class CidadeController {
         cidadeRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+    @DeleteMapping("")
+    public ResponseEntity<Void> deleteCidades(){
+        cidadeRepository.deleteAll();
+        return ResponseEntity.noContent().build();
+    }
 }

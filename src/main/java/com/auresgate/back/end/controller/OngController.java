@@ -43,4 +43,10 @@ public class OngController {
         ongRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("")
+    public ResponseEntity<Void> deleteOngs(){
+        ongRepository.deleteAll();
+        return ResponseEntity.noContent().build();
+    }
 }

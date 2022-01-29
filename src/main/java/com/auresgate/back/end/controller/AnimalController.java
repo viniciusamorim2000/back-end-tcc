@@ -45,4 +45,10 @@ public class AnimalController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("")
+    public ResponseEntity<Void> deleteallAnimal(){
+        animalRepository.deleteAll();
+        return ResponseEntity.noContent().build();
+    }
+
 }
